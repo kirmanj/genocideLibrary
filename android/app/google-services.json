@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "628308804992",
+    "project_id": "genocidelibrary-6860b",
+    "storage_bucket": "genocidelibrary-6860b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628308804992:android:7b2e3064288abcff0ced65",
+        "android_client_info": {
+          "package_name": "com.krmanj.librarygenocide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628308804992-8ltnr0hkc1kaqc4be2niog6mp2lcbaga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjO9HCrrgY0maD3jqsBbApcJkUDcCk2lw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628308804992-8ltnr0hkc1kaqc4be2niog6mp2lcbaga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
