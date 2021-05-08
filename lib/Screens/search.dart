@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:librarygenocide/Screens/pdf.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Search extends StatefulWidget {
@@ -93,7 +94,8 @@ class _SearchState extends State<Search> {
           'id': element.id,
           "name": element['name'],
           "display": element['name'].toString().toLowerCase(),
-          "publishDate": element['publishDate']
+          "publishDate": element['publishDate'],
+          "pdfLink": element['pdfLink'],
         };
         i++;
       });
@@ -284,7 +286,7 @@ class _SearchState extends State<Search> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Theme.of(context)
@@ -300,7 +302,7 @@ class _SearchState extends State<Search> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Theme.of(context)
@@ -319,7 +321,7 @@ class _SearchState extends State<Search> {
                                                     textAlign: TextAlign.end,
                                                     style: TextStyle(
                                                       wordSpacing: 0,
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Theme.of(context)
@@ -333,7 +335,7 @@ class _SearchState extends State<Search> {
                                                     textAlign: TextAlign.end,
                                                     style: TextStyle(
                                                       wordSpacing: 0,
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Theme.of(context)
@@ -342,69 +344,115 @@ class _SearchState extends State<Search> {
                                                   )),
                                             ],
                                           ),
-                                          Container(
-                                            width: width * 0.72,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                IconButton(
-                                                  icon: Icon(
-                                                    (favoritsList != null)
-                                                        ? (favoritsList.contains(
-                                                                searchedbook[i]
-                                                                    ['id']))
-                                                            ? Icons.favorite
-                                                            : Icons
-                                                                .favorite_border
-                                                        : Icons.favorite_border,
-                                                    size: 28,
-                                                  ),
-                                                  color: Theme.of(context)
-                                                      .highlightColor,
-                                                  onPressed: () {
-                                                    if (favoritsList != null) {
-                                                      favoritsList.contains(
-                                                          searchedbook[i]
-                                                              ['id']);
-                                                      if (favoritsList.contains(
-                                                          searchedbook[i]
-                                                              ['id'])) {
-                                                        setState(() {
-                                                          favoritsList.remove(
-                                                              searchedbook[i]
-                                                                  ['id']);
-                                                        });
-                                                      } else {
-                                                        setState(() {
-                                                          favoritsList.add(
-                                                              searchedbook[i]
-                                                                  ['id']);
-                                                        });
-                                                      }
-                                                      saveData();
-                                                    }
-                                                  },
-                                                ),
-                                                Container(
-                                                    width: width * 0.3,
-                                                    child: Text(
-                                                      getTotal(searchedbook[i][
-                                                                  'publishDate']
-                                                              .toString()) +
-                                                          '\t\t\t\t\t\t' +
-                                                          "سالی چاپ",
-                                                      textAlign: TextAlign.end,
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                          Expanded(
+                                            child: Container(
+                                              width: width * 0.72,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      IconButton(
+                                                        icon: Icon(
+                                                          (favoritsList != null)
+                                                              ? (favoritsList.contains(
+                                                                      searchedbook[
+                                                                              i]
+                                                                          [
+                                                                          'id']))
+                                                                  ? Icons
+                                                                      .favorite
+                                                                  : Icons
+                                                                      .favorite_border
+                                                              : Icons
+                                                                  .favorite_border,
+                                                          size: 22,
+                                                        ),
+                                                        color: Theme.of(context)
+                                                            .highlightColor,
+                                                        onPressed: () {
+                                                          if (favoritsList !=
+                                                              null) {
+                                                            favoritsList
+                                                                .contains(
+                                                                    searchedbook[
+                                                                            i]
+                                                                        ['id']);
+                                                            if (favoritsList
+                                                                .contains(
+                                                                    searchedbook[
+                                                                            i][
+                                                                        'id'])) {
+                                                              setState(() {
+                                                                favoritsList.remove(
+                                                                    searchedbook[
+                                                                            i]
+                                                                        ['id']);
+                                                              });
+                                                            } else {
+                                                              setState(() {
+                                                                favoritsList.add(
+                                                                    searchedbook[
+                                                                            i]
+                                                                        ['id']);
+                                                              });
+                                                            }
+                                                            saveData();
+                                                          }
+                                                        },
+                                                      ),
+                                                      IconButton(
+                                                        icon: Icon(
+                                                          (searchedbook[i][
+                                                                      'pdfLink']
+                                                                  .isEmpty)
+                                                              ? null
+                                                              : Icons
+                                                                  .picture_as_pdf,
+                                                          size: 22,
+                                                        ),
                                                         color: Theme.of(context)
                                                             .accentColor,
+                                                        onPressed: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          PDFBOOK(
+                                                                            name:
+                                                                                searchedbook[i]['name'],
+                                                                            pdfUrl:
+                                                                                searchedbook[i]['pdfLink'],
+                                                                          )));
+                                                        },
                                                       ),
-                                                    )),
-                                              ],
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                      width: width * 0.3,
+                                                      child: Text(
+                                                        getTotal(searchedbook[i]
+                                                                    [
+                                                                    'publishDate']
+                                                                .toString()) +
+                                                            '\t\t\t\t\t\t' +
+                                                            "سالی چاپ",
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .accentColor,
+                                                        ),
+                                                      )),
+                                                ],
+                                              ),
                                             ),
                                           )
                                         ],

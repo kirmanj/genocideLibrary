@@ -199,7 +199,7 @@ class _CategoryListState extends State<CategoryList> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Theme.of(context)
@@ -215,7 +215,7 @@ class _CategoryListState extends State<CategoryList> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Theme.of(context)
@@ -234,7 +234,7 @@ class _CategoryListState extends State<CategoryList> {
                                                     textAlign: TextAlign.end,
                                                     style: TextStyle(
                                                       wordSpacing: 0,
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Theme.of(context)
@@ -248,7 +248,7 @@ class _CategoryListState extends State<CategoryList> {
                                                     textAlign: TextAlign.end,
                                                     style: TextStyle(
                                                       wordSpacing: 0,
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Theme.of(context)
@@ -280,7 +280,7 @@ class _CategoryListState extends State<CategoryList> {
                                                                       .favorite_border
                                                               : Icons
                                                                   .favorite_border,
-                                                          size: 28,
+                                                          size: 22,
                                                         ),
                                                         color: Theme.of(context)
                                                             .highlightColor,
@@ -321,7 +321,7 @@ class _CategoryListState extends State<CategoryList> {
                                                               ? null
                                                               : Icons
                                                                   .picture_as_pdf,
-                                                          size: 28,
+                                                          size: 22,
                                                         ),
                                                         color: Theme.of(context)
                                                             .accentColor,
@@ -353,7 +353,7 @@ class _CategoryListState extends State<CategoryList> {
                                                         textAlign:
                                                             TextAlign.end,
                                                         style: TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color:

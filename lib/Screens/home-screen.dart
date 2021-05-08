@@ -136,8 +136,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.home,
-                            size: 30, color: Theme.of(context).highlightColor),
+                        icon: Icon(Icons.menu,
+                            size: 26, color: Theme.of(context).highlightColor),
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       : catMap.length != i
                           ? Container()
                           : Container(
-                              height: height * 0.85,
+                              height: height * 0.8,
                               child: GridView.count(
                                 primary: false,
                                 padding: const EdgeInsets.all(20),
@@ -212,43 +212,45 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: height * 0.14),
-                                                child: Container(
-                                                    width: width,
-                                                    height: height * 0.045,
-                                                    color: Colors.black87,
-                                                    child: Center(
-                                                        child: Text(
-                                                      i['name'],
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .primaryColor),
-                                                    ))),
+                                              Container(
+                                                height: height * 0.08,
+                                                color: Colors.black87,
+                                                margin: EdgeInsets.only(
+                                                    top: height * 0.15),
                                               ),
                                               Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: height * 0.185),
-                                                  child: Container(
-                                                      width: width,
-                                                      height: height * 0.045,
-                                                      color: Colors.black87,
-                                                      child: Center(
-                                                          child: Text(
-                                                        getTotal(i['total']),
+                                                padding: EdgeInsets.only(
+                                                    top: height * 0.13),
+                                                child: Container(
+                                                    width: width,
+                                                    height: height * 0.1,
+                                                    child: ListTile(
+                                                      title: Text(
+                                                        i['name'],
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
-                                                            fontSize: 16,
+                                                            fontSize: 14,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             color: Theme.of(
                                                                     context)
                                                                 .primaryColor),
-                                                      )))),
+                                                      ),
+                                                      subtitle: Text(
+                                                        getTotal(i['total']),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColor),
+                                                      ),
+                                                    )),
+                                              ),
                                             ],
                                           )),
                                     )

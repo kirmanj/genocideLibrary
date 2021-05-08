@@ -94,6 +94,19 @@ class _AdminPannelState extends State<AdminPannel> {
   int j = 0;
   GlobalKey<FormState> _formKey = GlobalKey();
 
+  TextEditingController bookName = TextEditingController();
+
+  TextEditingController writeName = TextEditingController();
+  TextEditingController bookCategory = TextEditingController();
+  TextEditingController yearOfBook = TextEditingController();
+
+  String userImage;
+  File _imageFile;
+  String fileName;
+
+  bool isRead = false;
+  PanelController panelController = PanelController();
+
   getBooks() {
     int i = 0;
     FirebaseFirestore.instance.collection('categories').get().then((value) {
@@ -159,16 +172,6 @@ class _AdminPannelState extends State<AdminPannel> {
       i--;
     });
   }
-
-  TextEditingController bookName = TextEditingController();
-
-  TextEditingController writeName = TextEditingController();
-  TextEditingController bookCategory = TextEditingController();
-  TextEditingController yearOfBook = TextEditingController();
-
-  String userImage;
-  File _imageFile;
-  String fileName;
 
   Future chooseFile() async {
     await ImagePicker.pickImage(source: ImageSource.gallery).then((value) {
@@ -254,11 +257,8 @@ class _AdminPannelState extends State<AdminPannel> {
     );
   }
 
-  bool isRead = false;
-
   @override
   void initState() {
-    print(isRead);
     getBooks();
 
     // TODO: implement initState
@@ -275,6 +275,7 @@ class _AdminPannelState extends State<AdminPannel> {
         child: SlidingUpPanel(
           maxHeight: height * 0.8,
           minHeight: height * 0.075,
+          controller: panelController,
           onPanelOpened: () {
             setState(() {
               onPanel = !onPanel;
@@ -293,6 +294,15 @@ class _AdminPannelState extends State<AdminPannel> {
                   .then((value) {
                 categoryControl = value.id;
                 dropDownValue = value['name'];
+              });
+            } else {
+              setState(() {
+                bookName.text = "";
+                fileName = null;
+                writeName.text = "";
+                yearOfBook.text = "";
+                _imageFile = null;
+                userImage = null;
               });
             }
           },
@@ -610,7 +620,7 @@ class _AdminPannelState extends State<AdminPannel> {
                       ),
                       (cats != null)
                           ? Container(
-                              child: dropDownValue == null
+                              child: (dropDownValue == null || !onPanel)
                                   ? Container()
                                   : DropdownButton(
                                       icon: (onPanel)
@@ -625,6 +635,8 @@ class _AdminPannelState extends State<AdminPannel> {
                                                   .primaryColor,
                                             ),
                                       value: dropDownValue,
+                                      dropdownColor:
+                                          Theme.of(context).accentColor,
                                       items: catsInedx
                                           .map<DropdownMenuItem<String>>(
                                               (String value) {
@@ -680,253 +692,245 @@ class _AdminPannelState extends State<AdminPannel> {
                                                     (dropDownValue ==
                                                         dropDownValue)) ||
                                                 onPanel)
-                                            ? Expanded(
-                                                child: Container(
-                                                  margin: EdgeInsets.only(
-                                                      bottom: height * 0.01,
-                                                      top: height * 0.01),
-                                                  height: height * 0.15,
-                                                  decoration: BoxDecoration(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .highlightColor
-                                                                .withOpacity(
-                                                                    0.9),
-                                                            blurRadius: 10.0)
-                                                      ]),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Container(
-                                                        // color: Colors.red,
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                    width:
-                                                                        width *
-                                                                            0.52,
-                                                                    height:
-                                                                        height *
-                                                                            0.05,
-                                                                    child: Text(
-                                                                      (bookSnapshots[
-                                                                              i]
-                                                                          [
-                                                                          'name']),
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .end,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        color: Theme.of(context)
-                                                                            .accentColor,
-                                                                      ),
-                                                                    )),
-                                                                Container(
-                                                                    width:
-                                                                        width *
-                                                                            0.2,
-                                                                    height:
-                                                                        height *
-                                                                            0.05,
-                                                                    child: Text(
-                                                                      "ناوی کتێب",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .end,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        color: Theme.of(context)
-                                                                            .accentColor,
-                                                                      ),
-                                                                    )),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                    width:
-                                                                        width *
-                                                                            0.55,
-                                                                    child: Text(
-                                                                      bookSnapshots[i]
-                                                                              [
-                                                                              'author'] +
-                                                                          '\t\t\t',
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .end,
-                                                                      style:
-                                                                          TextStyle(
-                                                                        wordSpacing:
-                                                                            0,
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        color: Theme.of(context)
-                                                                            .accentColor,
-                                                                      ),
-                                                                    )),
-                                                                Container(
-                                                                    width:
-                                                                        width *
-                                                                            0.17,
-                                                                    child: Text(
-                                                                      "ناوی نوسەر",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .end,
-                                                                      style:
-                                                                          TextStyle(
-                                                                        wordSpacing:
-                                                                            0,
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        color: Theme.of(context)
-                                                                            .accentColor,
-                                                                      ),
-                                                                    )),
-                                                              ],
-                                                            ),
-                                                            Expanded(
-                                                              child: Container(
-                                                                width: width *
-                                                                    0.72,
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Container(
-                                                                      child:
-                                                                          Row(
-                                                                        children: [
-                                                                          Row(
-                                                                            children: [
-                                                                              Container(
-                                                                                width: width * 0.075,
-                                                                                child: IconButton(
-                                                                                  icon: Icon(
-                                                                                    Icons.delete,
-                                                                                    color: Colors.red,
-                                                                                    size: 24,
-                                                                                  ),
-                                                                                  color: Theme.of(context).primaryColor,
-                                                                                  onPressed: () {
-                                                                                    FirebaseFirestore.instance.collection('books').doc(bookSnapshots[i].id).delete().whenComplete(() {
-                                                                                      getBooks();
-                                                                                    });
-                                                                                  },
-                                                                                ),
-                                                                              ),
-                                                                              Container(
-                                                                                width: width * 0.075,
-                                                                                child: IconButton(
-                                                                                  icon: Icon(
-                                                                                    (!favorites[i]) ? Icons.edit : Icons.edit_off,
-                                                                                    size: 24,
-                                                                                  ),
-                                                                                  color: Theme.of(context).accentColor,
-                                                                                  onPressed: () {
-                                                                                    setState(() {
-                                                                                      if ((editBookFlag == i) && !favorites[i]) {
-                                                                                        editBookFlag = null;
-                                                                                      }
-                                                                                      favorites[i] = true;
-                                                                                      editBookImage = bookImages[i];
-                                                                                      bookEditSnapshot = bookSnapshots[i];
-                                                                                      if (editBookFlag != null) {
-                                                                                        favorites[editBookFlag] = false;
-                                                                                      }
-                                                                                      editBookFlag = i;
-                                                                                    });
-                                                                                    //print(favorites);
-                                                                                  },
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Container(
-                                                                              width: width * 0.2,
-                                                                              child: Text(
-                                                                                changeToArabNum(bookSnapshots[i]['publishDate'].toString()) + '\t\t\t' + "سالی چاپ",
-                                                                                textAlign: TextAlign.end,
-                                                                                style: TextStyle(
-                                                                                  wordSpacing: -5,
-                                                                                  fontSize: 18,
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  color: Theme.of(context).primaryColor,
-                                                                                ),
-                                                                              )),
-                                                                        ],
-                                                                      ),
+                                            ? Container(
+                                                margin: EdgeInsets.only(
+                                                    bottom: height * 0.01,
+                                                    top: height * 0.01),
+                                                height: height * 0.15,
+                                                decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .highlightColor
+                                                              .withOpacity(0.9),
+                                                          blurRadius: 10.0)
+                                                    ]),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Container(
+                                                      // color: Colors.red,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                  width: width *
+                                                                      0.52,
+                                                                  height:
+                                                                      height *
+                                                                          0.05,
+                                                                  child: Text(
+                                                                    (bookSnapshots[
+                                                                            i][
+                                                                        'name']),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .end,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .accentColor,
                                                                     ),
-                                                                    Container(
-                                                                        width: width *
-                                                                            0.3,
-                                                                        child:
-                                                                            Text(
-                                                                          changeToArabNum(bookSnapshots[i]['publishDate'].toString()) +
-                                                                              '\t\t\t\t\t\t' +
-                                                                              "سالی چاپ",
-                                                                          textAlign:
-                                                                              TextAlign.end,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color:
-                                                                                Theme.of(context).accentColor,
-                                                                          ),
-                                                                        )),
-                                                                  ],
-                                                                ),
+                                                                  )),
+                                                              Container(
+                                                                  width: width *
+                                                                      0.2,
+                                                                  height:
+                                                                      height *
+                                                                          0.05,
+                                                                  child: Text(
+                                                                    "ناوی کتێب",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .end,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .accentColor,
+                                                                    ),
+                                                                  )),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                  width: width *
+                                                                      0.55,
+                                                                  child: Text(
+                                                                    bookSnapshots[i]
+                                                                            [
+                                                                            'author'] +
+                                                                        '\t\t\t',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .end,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      wordSpacing:
+                                                                          0,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .accentColor,
+                                                                    ),
+                                                                  )),
+                                                              Container(
+                                                                  width: width *
+                                                                      0.17,
+                                                                  child: Text(
+                                                                    "ناوی نوسەر",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .end,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      wordSpacing:
+                                                                          0,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .accentColor,
+                                                                    ),
+                                                                  )),
+                                                            ],
+                                                          ),
+                                                          Expanded(
+                                                            child: Container(
+                                                              width:
+                                                                  width * 0.72,
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Row(
+                                                                          children: [
+                                                                            Container(
+                                                                              width: width * 0.075,
+                                                                              child: IconButton(
+                                                                                icon: Icon(
+                                                                                  Icons.delete,
+                                                                                  color: Colors.red,
+                                                                                  size: 20,
+                                                                                ),
+                                                                                color: Theme.of(context).primaryColor,
+                                                                                onPressed: () {
+                                                                                  FirebaseFirestore.instance.collection('books').doc(bookSnapshots[i].id).delete().whenComplete(() {
+                                                                                    getBooks();
+                                                                                  });
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                            Container(
+                                                                              width: width * 0.075,
+                                                                              child: IconButton(
+                                                                                icon: Icon(
+                                                                                  (!favorites[i]) ? Icons.edit : Icons.edit_off,
+                                                                                  size: 20,
+                                                                                ),
+                                                                                color: Theme.of(context).accentColor,
+                                                                                onPressed: () {
+                                                                                  setState(() {
+                                                                                    if ((editBookFlag == i) && !favorites[i]) {
+                                                                                      editBookFlag = null;
+                                                                                    }
+                                                                                    if (!favorites[i]) {
+                                                                                      panelController.open();
+                                                                                    }
+                                                                                    favorites[i] = true;
+                                                                                    editBookImage = bookImages[i];
+                                                                                    bookEditSnapshot = bookSnapshots[i];
+                                                                                    if (editBookFlag != null) {
+                                                                                      favorites[editBookFlag] = false;
+                                                                                    }
+                                                                                    editBookFlag = i;
+                                                                                  });
+
+                                                                                  //print(favorites);
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                      width:
+                                                                          width *
+                                                                              0.3,
+                                                                      child:
+                                                                          Text(
+                                                                        changeToArabNum(bookSnapshots[i]['publishDate'].toString()) +
+                                                                            '\t\t\t\t\t\t' +
+                                                                            "سالی چاپ",
+                                                                        textAlign:
+                                                                            TextAlign.end,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          color:
+                                                                              Theme.of(context).accentColor,
+                                                                        ),
+                                                                      )),
+                                                                ],
                                                               ),
-                                                            )
-                                                          ],
-                                                        ),
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
-                                                      SizedBox(
-                                                        width: width * 0.025,
-                                                      ),
-                                                      Container(
-                                                          width: width * 0.2,
-                                                          height: height,
-                                                          child: Image.network(
-                                                            bookImages[i],
-                                                            fit: BoxFit.cover,
-                                                          )),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: width * 0.025,
+                                                    ),
+                                                    Container(
+                                                        width: width * 0.2,
+                                                        height: height,
+                                                        child: Image.network(
+                                                          bookImages[i],
+                                                          fit: BoxFit.cover,
+                                                        )),
+                                                  ],
                                                 ),
                                               )
                                             : Container();

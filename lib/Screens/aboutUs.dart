@@ -184,7 +184,7 @@ class _AboutUsState extends State<AboutUs> {
                                       profileList[index],
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
+                                          color: Colors.white, fontSize: 18),
                                     ),
                                   ],
                                 ),
@@ -204,6 +204,12 @@ class _AboutUsState extends State<AboutUs> {
                 ),
               ),
               Container(
+                child: Text(
+                  " پەرتووکەکانی ئەم نەرمەکالایە لە ئەرشیفی ئەم نوسەرە بەرێزە وەرگیراون ",
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+              Container(
                   height: height * 0.12,
                   // width: width,
                   //color: Colors.white,
@@ -211,7 +217,7 @@ class _AboutUsState extends State<AboutUs> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "powered by SmartSolution",
+                        " By SmartSolution",
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
                       SizedBox(
