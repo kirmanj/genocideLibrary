@@ -217,15 +217,15 @@ class _AboutUsState extends State<AboutUs> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        " By SmartSolution",
+                        " By",
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                       Container(
-                        width: 30,
-                        height: 30,
+                        width: width * 0.3,
+                        height: height * 0.1,
                         child: Image.asset("assets/smartLogo.png"),
                       )
                     ],
