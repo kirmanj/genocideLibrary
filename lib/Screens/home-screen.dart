@@ -148,9 +148,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'کتێبخانەی جینوسایدی گەلی کورد',
                         textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
-                            fontSize: 18,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
                       IconButton(

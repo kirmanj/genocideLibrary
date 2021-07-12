@@ -605,6 +605,7 @@ class _AdminPannelState extends State<AdminPannel> {
                             size: 22.0,
                           ),
                           onPressed: () {
+                           // showAlertDialogSignOut(context);
                             FirebaseAuth.instance.signOut();
                             Navigator.pop(context);
                           }),
@@ -935,7 +936,7 @@ class _AdminPannelState extends State<AdminPannel> {
                                               )
                                             : Container();
                                       } else {
-                                        Container();
+                                       return Container();
                                       }
                                     }),
                               ),
@@ -951,4 +952,36 @@ class _AdminPannelState extends State<AdminPannel> {
       ),
     );
   }
+
+  showAlertDialogSignOut(BuildContext context) {
+
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        FirebaseAuth.instance.signOut();
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(""),
+      content: Text("ئایا دڵنیایت لەوەی کە دەتەوێت بچیتە دەرەوە"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
+
+
+

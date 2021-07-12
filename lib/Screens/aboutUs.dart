@@ -105,7 +105,7 @@ class _AboutUsState extends State<AboutUs> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Theme.of(context).primaryColor,
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
                     IconButton(
