@@ -1,3 +1,4 @@
+import 'package:librarygenocide/Screens/detail.dart';
 import 'package:librarygenocide/Screens/pdf.dart';
 import 'package:librarygenocide/elements/emptyCategory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -179,179 +180,55 @@ class _CategoryListState extends State<CategoryList> {
                                               .withOpacity(0.9),
                                           blurRadius: 10.0)
                                     ]),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      // color: Colors.red,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await showDialog(
+                                        context: context,
+                                        builder: (_) => ImageDialog(
+                                            bookImages[i],
+                                            bookSnapshots[i],
+                                            favoritsList));
+                                  },
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          // color: Colors.red,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
-                                              Container(
-                                                  width: width * 0.52,
-                                                  height: height * 0.05,
-                                                  child: Text(
-                                                    (bookSnapshots[i]['name']),
-                                                    textAlign: TextAlign.end,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  )),
-                                              Container(
-                                                  width: width * 0.2,
-                                                  height: height * 0.05,
-                                                  child: Text(
-                                                    "ناوی کتێب",
-                                                    textAlign: TextAlign.end,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  )),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                  width: width * 0.55,
-                                                  child: Text(
-                                                    bookSnapshots[i]['author'] +
-                                                        '\t\t\t',
-                                                    textAlign: TextAlign.end,
-                                                    style: TextStyle(
-                                                      wordSpacing: 0,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  )),
-                                              Container(
-                                                  width: width * 0.17,
-                                                  child: Text(
-                                                    "ناوی نوسەر",
-                                                    textAlign: TextAlign.end,
-                                                    style: TextStyle(
-                                                      wordSpacing: 0,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  )),
-                                            ],
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              width: width * 0.72,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                              Row(
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      IconButton(
-                                                        icon: Icon(
-                                                          (favoritsList != null)
-                                                              ? (favoritsList.contains(
-                                                                      bookSnapshots[
-                                                                              i]
-                                                                          .id))
-                                                                  ? Icons
-                                                                      .favorite
-                                                                  : Icons
-                                                                      .favorite_border
-                                                              : Icons
-                                                                  .favorite_border,
-                                                          size: 22,
-                                                        ),
-                                                        color: Theme.of(context)
-                                                            .highlightColor,
-                                                        onPressed: () {
-                                                          if (favoritsList !=
-                                                              null) {
-                                                            favoritsList.contains(
-                                                                bookSnapshots[i]
-                                                                    .id);
-                                                            if (favoritsList
-                                                                .contains(
-                                                                    bookSnapshots[
-                                                                            i]
-                                                                        .id)) {
-                                                              setState(() {
-                                                                favoritsList.remove(
-                                                                    bookSnapshots[
-                                                                            i]
-                                                                        .id);
-                                                              });
-                                                            } else {
-                                                              setState(() {
-                                                                favoritsList.add(
-                                                                    bookSnapshots[
-                                                                            i]
-                                                                        .id);
-                                                              });
-                                                            }
-                                                            saveData();
-                                                          }
-                                                        },
-                                                      ),
-                                                      IconButton(
-                                                        icon: Icon(
-                                                          (bookSnapshots[i][
-                                                                      'pdfLink']
-                                                                  .isEmpty)
-                                                              ? null
-                                                              : Icons
-                                                                  .picture_as_pdf,
-                                                          size: 22,
-                                                        ),
-                                                        color: Theme.of(context)
-                                                            .accentColor,
-                                                        onPressed: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          PDFBOOK(
-                                                                            name:
-                                                                                bookSnapshots[i]['name'],
-                                                                            pdfUrl:
-                                                                                bookSnapshots[i]['pdfLink'],
-                                                                          )));
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
                                                   Container(
-                                                      width: width * 0.3,
+                                                      width: width * 0.52,
+                                                      height: height * 0.05,
                                                       child: Text(
-                                                        getTotal(bookSnapshots[
-                                                                        i][
-                                                                    'publishDate']
-                                                                .toString()) +
-                                                            '\t\t\t\t\t\t' +
-                                                            "سالی چاپ",
+                                                        (bookSnapshots[i]
+                                                            ['name']),
                                                         textAlign:
                                                             TextAlign.end,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .accentColor,
+                                                        ),
+                                                      )),
+                                                  Container(
+                                                      width: width * 0.2,
+                                                      height: height * 0.05,
+                                                      child: Text(
+                                                        "ناوی کتێب",
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
                                                           fontSize: 12,
                                                           fontWeight:
@@ -363,22 +240,168 @@ class _CategoryListState extends State<CategoryList> {
                                                       )),
                                                 ],
                                               ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.55,
+                                                      child: Text(
+                                                        bookSnapshots[i]
+                                                                ['author'] +
+                                                            '\t\t\t',
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                          wordSpacing: 0,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .accentColor,
+                                                        ),
+                                                      )),
+                                                  Container(
+                                                      width: width * 0.17,
+                                                      child: Text(
+                                                        "ناوی نوسەر",
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                          wordSpacing: 0,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .accentColor,
+                                                        ),
+                                                      )),
+                                                ],
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  width: width * 0.72,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          IconButton(
+                                                            icon: Icon(
+                                                              (favoritsList !=
+                                                                      null)
+                                                                  ? (favoritsList.contains(
+                                                                          bookSnapshots[i]
+                                                                              .id))
+                                                                      ? Icons
+                                                                          .favorite
+                                                                      : Icons
+                                                                          .favorite_border
+                                                                  : Icons
+                                                                      .favorite_border,
+                                                              size: 22,
+                                                            ),
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .highlightColor,
+                                                            onPressed: () {
+                                                              if (favoritsList !=
+                                                                  null) {
+                                                                favoritsList.contains(
+                                                                    bookSnapshots[
+                                                                            i]
+                                                                        .id);
+                                                                if (favoritsList
+                                                                    .contains(
+                                                                        bookSnapshots[i]
+                                                                            .id)) {
+                                                                  setState(() {
+                                                                    favoritsList
+                                                                        .remove(
+                                                                            bookSnapshots[i].id);
+                                                                  });
+                                                                } else {
+                                                                  setState(() {
+                                                                    favoritsList.add(
+                                                                        bookSnapshots[i]
+                                                                            .id);
+                                                                  });
+                                                                }
+                                                                saveData();
+                                                              }
+                                                            },
+                                                          ),
+                                                          IconButton(
+                                                            icon: Icon(
+                                                              (bookSnapshots[i][
+                                                                          'pdfLink']
+                                                                      .isEmpty)
+                                                                  ? null
+                                                                  : Icons
+                                                                      .picture_as_pdf,
+                                                              size: 22,
+                                                            ),
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .accentColor,
+                                                            onPressed: () {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          PDFBOOK(
+                                                                            name:
+                                                                                bookSnapshots[i]['name'],
+                                                                            pdfUrl:
+                                                                                bookSnapshots[i]['pdfLink'],
+                                                                          )));
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                          width: width * 0.3,
+                                                          child: Text(
+                                                            getTotal(bookSnapshots[
+                                                                            i][
+                                                                        'publishDate']
+                                                                    .toString()) +
+                                                                '\t\t\t\t\t\t' +
+                                                                "سالی چاپ",
+                                                            textAlign:
+                                                                TextAlign.end,
+                                                            style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .accentColor,
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.025,
+                                        ),
+                                        Container(
+                                            width: width * 0.2,
+                                            height: height,
+                                            child: Image.network(
+                                              bookImages[i],
+                                              fit: BoxFit.cover,
+                                            )),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      width: width * 0.025,
-                                    ),
-                                    Container(
-                                        width: width * 0.2,
-                                        height: height,
-                                        child: Image.network(
-                                          bookImages[i],
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ],
+                                  ),
                                 ),
                               )
                             : Container(
@@ -390,3 +413,182 @@ class _CategoryListState extends State<CategoryList> {
               ));
   }
 }
+
+// class ImageDialog extends StatelessWidget {
+//   String imageLink;
+//   DocumentSnapshot bookSnapshots;
+//   List<String> favoritsList;
+//   ImageDialog(this.imageLink, this.bookSnapshots, this.favoritsList);
+//   @override
+//   Widget build(BuildContext context) {
+//     double height = MediaQuery.of(context).size.height;
+//     double width = MediaQuery.of(context).size.width;
+//     return Dialog(
+//       child: Container(
+//         width: width * 0.8,
+//         height: height * 0.7,
+//         child: Container(
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.end,
+//             children: [
+//               Container(
+//                 // color: Colors.red,
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Row(
+//                       children: [
+//                         Container(
+//                             width: width * 0.52,
+//                             height: height * 0.05,
+//                             child: Text(
+//                               (bookSnapshots['name']),
+//                               textAlign: TextAlign.end,
+//                               overflow: TextOverflow.ellipsis,
+//                               style: TextStyle(
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.bold,
+//                                 color: Theme.of(context).accentColor,
+//                               ),
+//                             )),
+//                         Container(
+//                             width: width * 0.2,
+//                             height: height * 0.05,
+//                             child: Text(
+//                               "ناوی کتێب",
+//                               textAlign: TextAlign.end,
+//                               overflow: TextOverflow.ellipsis,
+//                               style: TextStyle(
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.bold,
+//                                 color: Theme.of(context).accentColor,
+//                               ),
+//                             )),
+//                       ],
+//                     ),
+//                     Row(
+//                       children: [
+//                         Container(
+//                             width: width * 0.55,
+//                             child: Text(
+//                               bookSnapshots['author'] + '\t\t\t',
+//                               textAlign: TextAlign.end,
+//                               style: TextStyle(
+//                                 wordSpacing: 0,
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.bold,
+//                                 color: Theme.of(context).accentColor,
+//                               ),
+//                             )),
+//                         Container(
+//                             width: width * 0.17,
+//                             child: Text(
+//                               "ناوی نوسەر",
+//                               textAlign: TextAlign.end,
+//                               style: TextStyle(
+//                                 wordSpacing: 0,
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.bold,
+//                                 color: Theme.of(context).accentColor,
+//                               ),
+//                             )),
+//                       ],
+//                     ),
+//                     Expanded(
+//                       child: Container(
+//                         width: width * 0.72,
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Row(
+//                               children: [
+//                                 IconButton(
+//                                   icon: Icon(
+//                                     (favoritsList != null)
+//                                         ? (favoritsList
+//                                                 .contains(bookSnapshots[i].id))
+//                                             ? Icons.favorite
+//                                             : Icons.favorite_border
+//                                         : Icons.favorite_border,
+//                                     size: 22,
+//                                   ),
+//                                   color: Theme.of(context).highlightColor,
+//                                   onPressed: () {
+//                                     if (favoritsList != null) {
+//                                       favoritsList
+//                                           .contains(bookSnapshots.id);
+//                                       if (favoritsList
+//                                           .contains(bookSnapshots.id)) {
+//                                         setState(() {
+//                                           favoritsList
+//                                               .remove(bookSnapshots.id);
+//                                         });
+//                                       } else {
+//                                         setState(() {
+//                                           favoritsList.add(bookSnapshots.id);
+//                                         });
+//                                       }
+//                                       saveData();
+//                                     }
+//                                   },
+//                                 ),
+//                                 IconButton(
+//                                   icon: Icon(
+//                                     (bookSnapshots['pdfLink'].isEmpty)
+//                                         ? null
+//                                         : Icons.picture_as_pdf,
+//                                     size: 22,
+//                                   ),
+//                                   color: Theme.of(context).accentColor,
+//                                   onPressed: () {
+//                                     Navigator.push(
+//                                         context,
+//                                         MaterialPageRoute(
+//                                             builder: (context) => PDFBOOK(
+//                                                   name: bookSnapshots
+//                                                       ['name'],
+//                                                   pdfUrl: bookSnapshots
+//                                                       ['pdfLink'],
+//                                                 )));
+//                                   },
+//                                 ),
+//                               ],
+//                             ),
+//                             Container(
+//                                 width: width * 0.3,
+//                                 child: Text(
+//                                   getTotal(bookSnapshots['publishDate']
+//                                           .toString()) +
+//                                       '\t\t\t\t\t\t' +
+//                                       "سالی چاپ",
+//                                   textAlign: TextAlign.end,
+//                                   style: TextStyle(
+//                                     fontSize: 12,
+//                                     fontWeight: FontWeight.bold,
+//                                     color: Theme.of(context).accentColor,
+//                                   ),
+//                                 )),
+//                           ],
+//                         ),
+//                       ),
+//                     )
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(
+//                 width: width * 0.025,
+//               ),
+//               Container(
+//                   width: width * 0.2,
+//                   height: height,
+//                   child: Image.network(
+//                     imageLink,
+//                     fit: BoxFit.cover,
+//                   )),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

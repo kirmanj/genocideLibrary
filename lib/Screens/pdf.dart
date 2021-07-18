@@ -57,20 +57,22 @@ class _PDFBOOKState extends State<PDFBOOK> {
           style: TextStyle(color: Theme.of(context).primaryColor),
         ),
       ),
-      body: Container(
-        color: Theme.of(context).accentColor,
-        child: Center(
-          child: _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : PDFViewer(
-                  document: document,
-                  scrollDirection: Axis.vertical,
-                  zoomSteps: 1,
-                  pickerIconColor: Theme.of(context).primaryColor,
-                  pickerButtonColor: Theme.of(context).accentColor,
-                ),
-        ),
-      ),
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              color: Theme.of(context).accentColor,
+              child: Center(
+                child: _isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : PDFViewer(
+                        document: document,
+                        scrollDirection: Axis.vertical,
+                        zoomSteps: 1,
+                        pickerIconColor: Theme.of(context).primaryColor,
+                        pickerButtonColor: Theme.of(context).accentColor,
+                      ),
+              ),
+            ),
     );
   }
 }

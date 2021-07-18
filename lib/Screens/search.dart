@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:librarygenocide/Screens/detail.dart';
 import 'package:librarygenocide/Screens/pdf.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -267,227 +268,253 @@ class _SearchState extends State<Search> {
                                               .withOpacity(0.9),
                                           blurRadius: 10.0)
                                     ]),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Container(
-                                                  width: width * 0.52,
-                                                  height: height * 0.05,
-                                                  child: Text(
-                                                    (searchedbook[i]['name']),
-                                                    textAlign: TextAlign.end,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  )),
-                                              Container(
-                                                  width: width * 0.2,
-                                                  height: height * 0.05,
-                                                  child: Text(
-                                                    "ناوی کتێب",
-                                                    textAlign: TextAlign.end,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  )),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                  width: width * 0.55,
-                                                  child: Text(
-                                                    searchedbook[i]['author'] +
-                                                        '\t\t\t',
-                                                    textAlign: TextAlign.end,
-                                                    style: TextStyle(
-                                                      wordSpacing: 0,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  )),
-                                              Container(
-                                                  width: width * 0.17,
-                                                  child: Text(
-                                                    "ناوی نوسەر",
-                                                    textAlign: TextAlign.end,
-                                                    style: TextStyle(
-                                                      wordSpacing: 0,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  )),
-                                            ],
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              width: width * 0.72,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      IconButton(
-                                                        icon: Icon(
-                                                          (favoritsList != null)
-                                                              ? (favoritsList.contains(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                    DocumentSnapshot book;
+                                    FirebaseFirestore.instance
+                                        .collection('books')
+                                        .doc(searchedbook[i]["id"])
+                                        .get()
+                                        .then((value) {
+                                      setState(() {
+                                        book = value;
+                                      });
+                                      print(book['name']);
+                                    }).whenComplete(() async {
+                                      await showDialog(
+                                          context: context,
+                                          builder: (_) => ImageDialog(
+                                              urlbooks[i], book, favoritsList));
+                                    });
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                    width: width * 0.52,
+                                                    height: height * 0.05,
+                                                    child: Text(
+                                                      (searchedbook[i]['name']),
+                                                      textAlign: TextAlign.end,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                            .accentColor,
+                                                      ),
+                                                    )),
+                                                Container(
+                                                    width: width * 0.2,
+                                                    height: height * 0.05,
+                                                    child: Text(
+                                                      "ناوی کتێب",
+                                                      textAlign: TextAlign.end,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                            .accentColor,
+                                                      ),
+                                                    )),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                    width: width * 0.55,
+                                                    child: Text(
+                                                      searchedbook[i]
+                                                              ['author'] +
+                                                          '\t\t\t',
+                                                      textAlign: TextAlign.end,
+                                                      style: TextStyle(
+                                                        wordSpacing: 0,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                            .accentColor,
+                                                      ),
+                                                    )),
+                                                Container(
+                                                    width: width * 0.17,
+                                                    child: Text(
+                                                      "ناوی نوسەر",
+                                                      textAlign: TextAlign.end,
+                                                      style: TextStyle(
+                                                        wordSpacing: 0,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                            .accentColor,
+                                                      ),
+                                                    )),
+                                              ],
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                width: width * 0.72,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        IconButton(
+                                                          icon: Icon(
+                                                            (favoritsList !=
+                                                                    null)
+                                                                ? (favoritsList.contains(
+                                                                        searchedbook[i]
+                                                                            [
+                                                                            'id']))
+                                                                    ? Icons
+                                                                        .favorite
+                                                                    : Icons
+                                                                        .favorite_border
+                                                                : Icons
+                                                                    .favorite_border,
+                                                            size: 22,
+                                                          ),
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .highlightColor,
+                                                          onPressed: () {
+                                                            if (favoritsList !=
+                                                                null) {
+                                                              favoritsList.contains(
+                                                                  searchedbook[
+                                                                      i]['id']);
+                                                              if (favoritsList
+                                                                  .contains(
                                                                       searchedbook[
                                                                               i]
                                                                           [
-                                                                          'id']))
-                                                                  ? Icons
-                                                                      .favorite
-                                                                  : Icons
-                                                                      .favorite_border
-                                                              : Icons
-                                                                  .favorite_border,
-                                                          size: 22,
-                                                        ),
-                                                        color: Theme.of(context)
-                                                            .highlightColor,
-                                                        onPressed: () {
-                                                          if (favoritsList !=
-                                                              null) {
-                                                            favoritsList
-                                                                .contains(
-                                                                    searchedbook[
-                                                                            i]
-                                                                        ['id']);
-                                                            if (favoritsList
-                                                                .contains(
-                                                                    searchedbook[
-                                                                            i][
-                                                                        'id'])) {
-                                                              setState(() {
-                                                                favoritsList.remove(
-                                                                    searchedbook[
-                                                                            i]
-                                                                        ['id']);
-                                                              });
-                                                            } else {
-                                                              setState(() {
-                                                                favoritsList.add(
-                                                                    searchedbook[
-                                                                            i]
-                                                                        ['id']);
-                                                              });
+                                                                          'id'])) {
+                                                                setState(() {
+                                                                  favoritsList.remove(
+                                                                      searchedbook[
+                                                                              i]
+                                                                          [
+                                                                          'id']);
+                                                                });
+                                                              } else {
+                                                                setState(() {
+                                                                  favoritsList.add(
+                                                                      searchedbook[
+                                                                              i]
+                                                                          [
+                                                                          'id']);
+                                                                });
+                                                              }
+                                                              saveData();
                                                             }
-                                                            saveData();
-                                                          }
-                                                        },
-                                                      ),
-                                                      IconButton(
-                                                        icon: Icon(
-                                                          (searchedbook[i][
-                                                                      'pdfLink']
-                                                                  .isEmpty)
-                                                              ? null
-                                                              : Icons
-                                                                  .picture_as_pdf,
-                                                          size: 22,
+                                                          },
                                                         ),
-                                                        color: Theme.of(context)
-                                                            .accentColor,
-                                                        onPressed: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          PDFBOOK(
-                                                                            name:
-                                                                                searchedbook[i]['name'],
-                                                                            pdfUrl:
-                                                                                searchedbook[i]['pdfLink'],
-                                                                          )));
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                      width: width * 0.3,
-                                                      child: Text(
-                                                        getTotal(searchedbook[i]
-                                                                    [
-                                                                    'publishDate']
-                                                                .toString()) +
-                                                            '\t\t\t\t\t\t' +
-                                                            "سالی چاپ",
-                                                        textAlign:
-                                                            TextAlign.end,
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                        IconButton(
+                                                          icon: Icon(
+                                                            (searchedbook[i][
+                                                                        'pdfLink']
+                                                                    .isEmpty)
+                                                                ? null
+                                                                : Icons
+                                                                    .picture_as_pdf,
+                                                            size: 22,
+                                                          ),
                                                           color:
                                                               Theme.of(context)
                                                                   .accentColor,
+                                                          onPressed: () {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            PDFBOOK(
+                                                                              name: searchedbook[i]['name'],
+                                                                              pdfUrl: searchedbook[i]['pdfLink'],
+                                                                            )));
+                                                          },
                                                         ),
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: width * 0.025,
-                                    ),
-                                    Container(
-                                      width: width * 0.17,
-                                      height: height,
-                                      child: FutureBuilder(
-                                          future: getUrl(
-                                              searchedbook[i]['imagePath'], i),
-                                          builder: (_, snapshot) {
-                                            if (snapshot.hasData) {
-                                              return Container(
-                                                height: height * 0.2,
-                                                width: width * 0.2,
-                                                child: Image.network(
-                                                  snapshot.data,
-                                                  fit: BoxFit.fitHeight,
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                        width: width * 0.3,
+                                                        child: Text(
+                                                          getTotal(searchedbook[
+                                                                          i][
+                                                                      'publishDate']
+                                                                  .toString()) +
+                                                              '\t\t\t\t\t\t' +
+                                                              "سالی چاپ",
+                                                          textAlign:
+                                                              TextAlign.end,
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .accentColor,
+                                                          ),
+                                                        )),
+                                                  ],
                                                 ),
-                                              );
-                                            } else {
-                                              return Container(
-                                                height: height * 0.2,
-                                                width: width * 0.2,
-                                                child: Center(
-                                                    child: Text("waiting...")),
-                                              );
-                                            }
-                                          }),
-                                    ),
-                                  ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.025,
+                                      ),
+                                      Container(
+                                        width: width * 0.17,
+                                        height: height,
+                                        child: FutureBuilder(
+                                            future: getUrl(
+                                                searchedbook[i]['imagePath'],
+                                                i),
+                                            builder: (_, snapshot) {
+                                              if (snapshot.hasData) {
+                                                return Container(
+                                                  height: height * 0.2,
+                                                  width: width * 0.2,
+                                                  child: Image.network(
+                                                    snapshot.data,
+                                                    fit: BoxFit.fitHeight,
+                                                  ),
+                                                );
+                                              } else {
+                                                return Container(
+                                                  height: height * 0.2,
+                                                  width: width * 0.2,
+                                                  child: Center(
+                                                      child:
+                                                          Text("waiting...")),
+                                                );
+                                              }
+                                            }),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             }),
