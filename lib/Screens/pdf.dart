@@ -58,7 +58,14 @@ class _PDFBOOKState extends State<PDFBOOK> {
         ),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: Text("...جاوەروان بە",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
+            )
           : Container(
               color: Theme.of(context).accentColor,
               child: Center(
