@@ -116,151 +116,155 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  changePdfLink(String name) {
+    FirebaseFirestore.instance
+        .collection('books')
+        .where("name", isEqualTo: name)
+        .get()
+        .then((snapshot) {
+      String pdfLink = snapshot.docs[0]['name'] + ".pdf";
+      snapshot.docs[0].reference
+          .update({"pdfLink": (name + ".pdf").toString()});
+      print(pdfLink);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return SafeArea(
-      child: Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
-          body: SingleChildScrollView(
-            child: Container(
-              color: Theme.of(context).accentColor,
-              width: width,
-              height: height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.menu,
-                            size: 26, color: Theme.of(context).highlightColor),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AboutUs()));
-                        },
-                      ),
-                      Text(
-                        'کتێبخانەی جینوسایدی گەلی کورد',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.favorite,
-                            size: 26,
-                            color: Theme.of(context).highlightColor,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        FavoritesListScreen()));
-                          }),
-                    ],
-                  ),
-                  SearchWidget(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  catMap == null
-                      ? Container()
-                      : catMap.length != i
-                          ? Container()
-                          : Container(
-                              height: height * 0.8,
-                              child: GridView.count(
-                                primary: false,
-                                padding: const EdgeInsets.all(20),
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                crossAxisCount: 2,
-                                children: <Widget>[
-                                  for (var i in catMap)
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (crl) => CategoryList(
-                                                    i['id'], i['name'])));
-                                      },
-                                      child: Container(
-                                          //   color: Colors.red,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Theme.of(context)
-                                                  .highlightColor,
-                                            ),
-                                          ),
-                                          child: Stack(
-                                            children: [
-                                              Container(
-                                                width: width,
-                                                height: height * 0.23,
-                                                child: Image.network(
-                                                  i['url'],
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              Container(
-                                                height: height * 0.08,
-                                                color: Colors.black87,
-                                                margin: EdgeInsets.only(
-                                                    top: height * 0.15),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: height * 0.13),
-                                                child: Container(
-                                                    width: width,
-                                                    height: height * 0.1,
-                                                    child: ListTile(
-                                                      title: Text(
-                                                        i['name'],
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor),
-                                                      ),
-                                                      subtitle: Text(
-                                                        getTotal(i['total']),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor),
-                                                      ),
-                                                    )),
-                                              ),
-                                            ],
-                                          )),
-                                    )
-                                ],
-                              ),
-                            )
-                ],
-              ),
+        child: Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: SingleChildScrollView(
+          child: Container(
+        color: Theme.of(context).accentColor,
+        width: width,
+        height: height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.menu,
+                      size: 26, color: Theme.of(context).highlightColor),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AboutUs()));
+                  },
+                ),
+                Text(
+                  'کتێبخانەی جینوسایدی گەلی کورد',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      size: 26,
+                      color: Theme.of(context).highlightColor,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FavoritesListScreen()));
+                    }),
+              ],
             ),
-          )),
-    );
+            SearchWidget(),
+            SizedBox(
+              height: 10,
+            ),
+            catMap == null
+                ? Container()
+                : catMap.length != i
+                    ? Container()
+                    : Container(
+                        height: height * 0.8,
+                        child: GridView.count(
+                          primary: false,
+                          padding: const EdgeInsets.all(20),
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          crossAxisCount: 2,
+                          children: <Widget>[
+                            for (var i in catMap)
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (crl) => CategoryList(
+                                              i['id'], i['name'])));
+                                },
+                                child: Container(
+                                    //   color: Colors.red,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Theme.of(context).highlightColor,
+                                      ),
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: width,
+                                          height: height * 0.23,
+                                          child: Image.network(
+                                            i['url'],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                          height: height * 0.08,
+                                          color: Colors.black87,
+                                          margin: EdgeInsets.only(
+                                              top: height * 0.15),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: height * 0.13),
+                                          child: Container(
+                                              width: width,
+                                              height: height * 0.1,
+                                              child: ListTile(
+                                                title: Text(
+                                                  i['name'],
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
+                                                ),
+                                                subtitle: Text(
+                                                  getTotal(i['total']),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
+                                                ),
+                                              )),
+                                        ),
+                                      ],
+                                    )),
+                              )
+                          ],
+                        ),
+                      ),
+          ],
+        ),
+      )),
+    ));
   }
 }

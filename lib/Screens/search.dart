@@ -115,7 +115,7 @@ class _SearchState extends State<Search> {
                 item['authorDisplay'].startsWith(search.toLowerCase()))
             .toList();
       }
-      print(searchedbook);
+      print(searchedbook[0]["pdfLink"]);
       urlbooks = List<String>(searchedbook.length);
       favorites = List<bool>(searchedbook.length);
     });

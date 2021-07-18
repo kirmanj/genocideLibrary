@@ -30,8 +30,8 @@ class _PDFBOOKState extends State<PDFBOOK> {
   }
 
   loadDocument() async {
-    Reference storagePdf =
-        FirebaseStorage.instance.ref().child('pdf/baroque.pdf');
+    String bookUrl = widget.pdfUrl;
+    Reference storagePdf = FirebaseStorage.instance.ref().child('pdf/$bookUrl');
     String pdfUrl = await storagePdf.getDownloadURL();
 
     setState(() => _isLoading = true);
