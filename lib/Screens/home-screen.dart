@@ -234,35 +234,67 @@ class _HomeScreenState extends State<HomeScreen> {
                                           margin: EdgeInsets.only(
                                               top: height * 0.15),
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: height * 0.13),
-                                          child: Container(
-                                              width: width,
-                                              height: height * 0.1,
-                                              child: ListTile(
-                                                title: Text(
-                                                  i['name'],
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .primaryColor),
-                                                ),
-                                                subtitle: Text(
-                                                  getTotal(i['total']),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .primaryColor),
-                                                ),
-                                              )),
+                                        PositionedDirectional(
+                                          bottom: 20,
+                                          end: 20,
+                                          start: 20,
+                                          child: Text(
+                                            i['name'],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight:
+                                                FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                          ),
                                         ),
+                                        PositionedDirectional(
+                                          bottom: 3,
+                                          end: 20,
+                                          start: 20,
+                                          child: Text(
+                                            getTotal(i['total']),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight:
+                                                FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                          ),
+                                        ),
+
+                                       //  PositionedDirectional(
+                                       // bottom: 20,
+                                       //    end: 3,
+                                       //
+                                       //    child: Container(
+                                       //        width: width,
+                                       //        height: height * 0.1,
+                                       //        child: ListTile(
+                                       //          title: Text(
+                                       //            i['name'],
+                                       //            textAlign: TextAlign.center,
+                                       //            style: TextStyle(
+                                       //                fontSize: 14,
+                                       //                fontWeight:
+                                       //                    FontWeight.bold,
+                                       //                color: Theme.of(context)
+                                       //                    .primaryColor),
+                                       //          ),
+                                       //          subtitle: Text(
+                                       //            getTotal(i['total']),
+                                       //            textAlign: TextAlign.center,
+                                       //            style: TextStyle(
+                                       //                fontSize: 10,
+                                       //                fontWeight:
+                                       //                    FontWeight.bold,
+                                       //                color: Theme.of(context)
+                                       //                    .primaryColor),
+                                       //          ),
+                                       //        )),
+                                       //  ),
                                       ],
                                     )),
                               )

@@ -11,7 +11,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 3), () {
       Navigator.push(
           context, MaterialPageRoute(builder: (crl) => HomeScreen()));
     });
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Theme.of(context).primaryColor,
-                      fontSize: 42,
+                      fontSize: 36,
                       fontWeight: FontWeight.bold),
                 ),
                 Center(

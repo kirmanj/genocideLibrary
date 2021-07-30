@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>628308804992-l53e8dbg4hs6el10dkqbnlh1q8s9g10p.apps.googleusercontent.com</string>
+	<string>628308804992-lmvl1cutsgun2rc5qricnujh92age9d1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.628308804992-l53e8dbg4hs6el10dkqbnlh1q8s9g10p</string>
+	<string>com.googleusercontent.apps.628308804992-lmvl1cutsgun2rc5qricnujh92age9d1</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDM84dRv4k3Gp-T84IguVQ3AfcNi_iYx58</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.krmanj.librarygenocide</string>
+	<string>com.krmanj.librarygenocide.guideware</string>
 	<key>PROJECT_ID</key>
 	<string>genocidelibrary-6860b</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:628308804992:ios:0213177a3945d0f70ced65</string>
+	<string>1:628308804992:ios:7a86beb1814ce1060ced65</string>
 </dict>
 </plist>
