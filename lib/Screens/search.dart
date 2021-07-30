@@ -97,6 +97,7 @@ class _SearchState extends State<Search> {
           "display": element['name'].toString().toLowerCase(),
           "publishDate": element['publishDate'],
           "pdfLink": element['pdfLink'],
+          "pdfShow": element['pdfShow'],
         };
         i++;
       });
@@ -431,8 +432,12 @@ class _SearchState extends State<Search> {
                                                         IconButton(
                                                           icon: Icon(
                                                             (searchedbook[i][
-                                                                        'pdfLink']
-                                                                    .isEmpty)
+                                                                            'pdfLink']
+                                                                        .isEmpty ||
+                                                                    (searchedbook[i]
+                                                                            [
+                                                                            'pdfShow'] ==
+                                                                        1))
                                                                 ? null
                                                                 : Icons
                                                                     .picture_as_pdf,

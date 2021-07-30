@@ -91,6 +91,7 @@ class _CategoryListState extends State<CategoryList> {
         setState(() {
           bookSnapshots[i] = element;
           bookImages[i] = (url);
+          print(bookSnapshots[i]['pdfShow']);
           favorites[i] = false;
         });
         print(bookImages);
@@ -336,8 +337,12 @@ class _CategoryListState extends State<CategoryList> {
                                                           IconButton(
                                                             icon: Icon(
                                                               (bookSnapshots[i][
-                                                                          'pdfLink']
-                                                                      .isEmpty)
+                                                                              'pdfLink']
+                                                                          .isEmpty ||
+                                                                      (bookSnapshots[i]
+                                                                              [
+                                                                              'pdfShow'] ==
+                                                                          1))
                                                                   ? null
                                                                   : Icons
                                                                       .picture_as_pdf,

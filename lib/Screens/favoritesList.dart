@@ -83,6 +83,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
         setState(() {
           bookSnapshots[i] = element;
           bookImages[i] = (url);
+
           favorites[i] = false;
         });
         print(bookImages);
@@ -360,8 +361,9 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                                                   ),
                                                                   IconButton(
                                                                     icon: Icon(
-                                                                      (bookSnapshots[i]['pdfLink']
-                                                                              .isEmpty)
+                                                                      (bookSnapshots[i]['pdfLink'].isEmpty ||
+                                                                              (bookSnapshots[i]['pdfShow'] ==
+                                                                                  1))
                                                                           ? null
                                                                           : Icons
                                                                               .picture_as_pdf,

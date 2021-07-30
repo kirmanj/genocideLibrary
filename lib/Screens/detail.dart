@@ -185,7 +185,8 @@ class _ImageDialogState extends State<ImageDialog> {
               SizedBox(
                 height: height * 0.04,
               ),
-              (bookSnapshots['pdfLink'].isEmpty)
+              (bookSnapshots['pdfLink'].isEmpty ||
+                      (bookSnapshots['pdfShow'] == 1))
                   ? Container()
                   : RaisedButton(
                       onPressed: () {

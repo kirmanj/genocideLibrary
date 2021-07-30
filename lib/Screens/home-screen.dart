@@ -112,6 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     safeTotalOfCategories();
     getBook();
+    // changePdfLink("name");
     // TODO: implement initState
     super.initState();
   }
@@ -119,12 +120,18 @@ class _HomeScreenState extends State<HomeScreen> {
   changePdfLink(String name) {
     FirebaseFirestore.instance
         .collection('books')
-        .where("name", isEqualTo: name)
+        // .where("name", isEqualTo: name)
         .get()
         .then((snapshot) {
       String pdfLink = snapshot.docs[0]['name'] + ".pdf";
-      snapshot.docs[0].reference
-          .update({"pdfLink": (name + ".pdf").toString()});
+
+      for (int i = 0; i < snapshot.docs.length; i++) {
+        snapshot.docs[i].reference.update({
+          //"pdfLink": (name + ".pdf").toString()
+          "pdfShow": 1
+        });
+      }
+
       print(pdfLink);
     });
   }
