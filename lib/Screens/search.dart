@@ -58,18 +58,15 @@ class _SearchState extends State<Search> {
       favoritsList = vaforitePrefrences.getStringList("favoritsList");
     });
     if (favoritsList == null) {
-      print('nullll');
       favoritsList = List<String>();
     }
-    print("getData");
-    print(favoritsList);
   }
 
   saveData() async {
     SharedPreferences vaforitePrefrences =
         await SharedPreferences.getInstance();
     vaforitePrefrences.setStringList("favoritsList", favoritsList);
-    print(favoritsList);
+
     //print(favoritsList.isEmpty);
   }
 
@@ -111,13 +108,12 @@ class _SearchState extends State<Search> {
           .where((Map item) => item['display'].startsWith(search.toLowerCase()))
           .toList();
       if (searchedbook.isEmpty) {
-        print("object");
         searchedbook = books
             .where((Map item) =>
                 item['authorDisplay'].startsWith(search.toLowerCase()))
             .toList();
       }
-      print(searchedbook[0]["pdfLink"]);
+
       urlbooks = List<String>(searchedbook.length);
       favorites = List<bool>(searchedbook.length);
     });
@@ -127,7 +123,7 @@ class _SearchState extends State<Search> {
   Future<String> getUrl(String url, int i) async {
     final ref = FirebaseStorage.instance.ref().child('books/' + url);
     urlbooks[i] = await ref.getDownloadURL();
-    print(urlbooks[i]);
+
     return urlbooks[i];
   }
 
@@ -282,7 +278,6 @@ class _SearchState extends State<Search> {
                                       setState(() {
                                         book = value;
                                       });
-                                      print(book['name']);
                                     }).whenComplete(() async {
                                       await showDialog(
                                           context: context,

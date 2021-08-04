@@ -49,6 +49,14 @@ class _ImageDialogState extends State<ImageDialog> {
     return output.join();
   }
 
+  @override
+  void initState() {
+    print(widget.bookSnapshots['name']);
+
+    // TODO: implement initState
+    super.initState();
+  }
+
   getData() async {
     SharedPreferences vaforitePrefrences =
         await SharedPreferences.getInstance();

@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     safeTotalOfCategories();
     getBook();
-    // changePdfLink("name");
+    changePdfLink("name");
     // TODO: implement initState
     super.initState();
   }
@@ -120,14 +120,14 @@ class _HomeScreenState extends State<HomeScreen> {
   changePdfLink(String name) {
     FirebaseFirestore.instance
         .collection('books')
-        // .where("name", isEqualTo: name)
+        //.where("name", isEqualTo: name)
         .get()
         .then((snapshot) {
       String pdfLink = snapshot.docs[0]['name'] + ".pdf";
 
       for (int i = 0; i < snapshot.docs.length; i++) {
         snapshot.docs[i].reference.update({
-          //"pdfLink": (name + ".pdf").toString()
+          //"pdfLink": (snapshot.docs[i]['name'] + ".pdf").toString()
           "pdfShow": 1
         });
       }
@@ -243,8 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 14,
-                                                fontWeight:
-                                                FontWeight.bold,
+                                                fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
                                                     .primaryColor),
                                           ),
@@ -258,43 +257,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 10,
-                                                fontWeight:
-                                                FontWeight.bold,
+                                                fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
                                                     .primaryColor),
                                           ),
                                         ),
 
-                                       //  PositionedDirectional(
-                                       // bottom: 20,
-                                       //    end: 3,
-                                       //
-                                       //    child: Container(
-                                       //        width: width,
-                                       //        height: height * 0.1,
-                                       //        child: ListTile(
-                                       //          title: Text(
-                                       //            i['name'],
-                                       //            textAlign: TextAlign.center,
-                                       //            style: TextStyle(
-                                       //                fontSize: 14,
-                                       //                fontWeight:
-                                       //                    FontWeight.bold,
-                                       //                color: Theme.of(context)
-                                       //                    .primaryColor),
-                                       //          ),
-                                       //          subtitle: Text(
-                                       //            getTotal(i['total']),
-                                       //            textAlign: TextAlign.center,
-                                       //            style: TextStyle(
-                                       //                fontSize: 10,
-                                       //                fontWeight:
-                                       //                    FontWeight.bold,
-                                       //                color: Theme.of(context)
-                                       //                    .primaryColor),
-                                       //          ),
-                                       //        )),
-                                       //  ),
+                                        //  PositionedDirectional(
+                                        // bottom: 20,
+                                        //    end: 3,
+                                        //
+                                        //    child: Container(
+                                        //        width: width,
+                                        //        height: height * 0.1,
+                                        //        child: ListTile(
+                                        //          title: Text(
+                                        //            i['name'],
+                                        //            textAlign: TextAlign.center,
+                                        //            style: TextStyle(
+                                        //                fontSize: 14,
+                                        //                fontWeight:
+                                        //                    FontWeight.bold,
+                                        //                color: Theme.of(context)
+                                        //                    .primaryColor),
+                                        //          ),
+                                        //          subtitle: Text(
+                                        //            getTotal(i['total']),
+                                        //            textAlign: TextAlign.center,
+                                        //            style: TextStyle(
+                                        //                fontSize: 10,
+                                        //                fontWeight:
+                                        //                    FontWeight.bold,
+                                        //                color: Theme.of(context)
+                                        //                    .primaryColor),
+                                        //          ),
+                                        //        )),
+                                        //  ),
                                       ],
                                     )),
                               )
