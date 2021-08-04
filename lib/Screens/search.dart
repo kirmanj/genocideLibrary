@@ -213,7 +213,7 @@ class _SearchState extends State<Search> {
                                       },
                                       style: TextStyle(
                                           decoration: TextDecoration.none),
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.right,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         labelStyle: TextStyle(

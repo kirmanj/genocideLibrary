@@ -16,7 +16,6 @@ class _SplashScreenState extends State<SplashScreen> {
           context, MaterialPageRoute(builder: (crl) => HomeScreen()));
     });
   }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

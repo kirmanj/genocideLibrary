@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:librarygenocide/Screens/pdf.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,7 +105,7 @@ class _ImageDialogState extends State<ImageDialog> {
                   height: height * 0.3,
                   child: Image.network(
                     imageLink,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitHeight,
                   )),
               SizedBox(
                 height: 10,
@@ -193,21 +196,55 @@ class _ImageDialogState extends State<ImageDialog> {
               SizedBox(
                 height: height * 0.04,
               ),
-              (bookSnapshots['pdfLink'].isEmpty ||
-                      (bookSnapshots['pdfShow'] == 1))
-                  ? Container()
-                  : RaisedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PDFBOOK(
-                                      name: bookSnapshots['name'],
-                                      pdfUrl: bookSnapshots['pdfLink'],
-                                    )));
-                      },
-                      child: Text("خوێندنەوە"),
-                    ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  // TextButton(
+                  //   style: ButtonStyle(
+                  //       shape:
+                  //           MaterialStateProperty.all<RoundedRectangleBorder>(
+                  //               RoundedRectangleBorder(
+                  //                   borderRadius: BorderRadius.zero,
+                  //                   side: BorderSide(color: Colors.red)))),
+                  //   onPressed: () async {
+                  //     String bookUrl = bookSnapshots['pdfLink'];
+                  //     Reference storagePdf =
+                  //         FirebaseStorage.instance.ref().child('pdf/$bookUrl');
+                  //     String pdfUrl = await storagePdf.getDownloadURL();
+                  //     Share.share(pdfUrl);
+                  //   },
+                  //   child: Text(
+                  //     "بلاوکردنەوە",
+                  //     style: TextStyle(color: Colors.red),
+                  //   ),
+                  // ),
+                  (bookSnapshots['pdfLink'].isEmpty ||
+                          (bookSnapshots['pdfShow'] == 1))
+                      ? Container()
+                      : TextButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero,
+                                      side: BorderSide(color: Colors.red)))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PDFBOOK(
+                                          name: bookSnapshots['name'],
+                                          pdfUrl: bookSnapshots['pdfLink'],
+                                        )));
+                          },
+                          child: Text(
+                            "خوێندنەوە",
+                            style: TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                ],
+              )
             ],
           ),
         )),

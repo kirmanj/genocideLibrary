@@ -205,6 +205,8 @@ class _CategoryListState extends State<CategoryList> {
                                                   Container(
                                                       width: width * 0.52,
                                                       height: height * 0.05,
+                                                      padding: EdgeInsets.only(
+                                                          top: 4),
                                                       child: Text(
                                                         (bookSnapshots[i]
                                                             ['name']),
@@ -224,6 +226,8 @@ class _CategoryListState extends State<CategoryList> {
                                                   Container(
                                                       width: width * 0.2,
                                                       height: height * 0.05,
+                                                      padding: EdgeInsets.only(
+                                                          top: 4),
                                                       child: Text(
                                                         "ناوی کتێب",
                                                         textAlign:
@@ -279,116 +283,117 @@ class _CategoryListState extends State<CategoryList> {
                                                       )),
                                                 ],
                                               ),
-                                              Expanded(
-                                                child: Container(
-                                                  width: width * 0.72,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          IconButton(
-                                                            icon: Icon(
-                                                              (favoritsList !=
-                                                                      null)
-                                                                  ? (favoritsList.contains(
-                                                                          bookSnapshots[i]
-                                                                              .id))
-                                                                      ? Icons
-                                                                          .favorite
-                                                                      : Icons
-                                                                          .favorite_border
-                                                                  : Icons
-                                                                      .favorite_border,
-                                                              size: 22,
-                                                            ),
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .highlightColor,
-                                                            onPressed: () {
-                                                              if (favoritsList !=
-                                                                  null) {
-                                                                favoritsList.contains(
-                                                                    bookSnapshots[
-                                                                            i]
-                                                                        .id);
-                                                                if (favoritsList
-                                                                    .contains(
+                                              Container(
+                                                //height: 30,
+                                                //color: Colors.green,
+                                                width: width * 0.72,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        IconButton(
+                                                          icon: Icon(
+                                                            (favoritsList !=
+                                                                    null)
+                                                                ? (favoritsList.contains(
                                                                         bookSnapshots[i]
-                                                                            .id)) {
-                                                                  setState(() {
-                                                                    favoritsList
-                                                                        .remove(
-                                                                            bookSnapshots[i].id);
-                                                                  });
-                                                                } else {
-                                                                  setState(() {
-                                                                    favoritsList.add(
-                                                                        bookSnapshots[i]
-                                                                            .id);
-                                                                  });
-                                                                }
-                                                                saveData();
-                                                              }
-                                                            },
+                                                                            .id))
+                                                                    ? Icons
+                                                                        .favorite
+                                                                    : Icons
+                                                                        .favorite_border
+                                                                : Icons
+                                                                    .favorite_border,
+                                                            size: 22,
                                                           ),
-                                                          IconButton(
-                                                            icon: Icon(
-                                                              (bookSnapshots[i][
-                                                                              'pdfLink']
-                                                                          .isEmpty ||
-                                                                      (bookSnapshots[i]
-                                                                              [
-                                                                              'pdfShow'] ==
-                                                                          1))
-                                                                  ? null
-                                                                  : Icons
-                                                                      .picture_as_pdf,
-                                                              size: 22,
-                                                            ),
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .highlightColor,
+                                                          onPressed: () {
+                                                            if (favoritsList !=
+                                                                null) {
+                                                              favoritsList.contains(
+                                                                  bookSnapshots[
+                                                                          i]
+                                                                      .id);
+                                                              if (favoritsList
+                                                                  .contains(
+                                                                      bookSnapshots[
+                                                                              i]
+                                                                          .id)) {
+                                                                setState(() {
+                                                                  favoritsList.remove(
+                                                                      bookSnapshots[
+                                                                              i]
+                                                                          .id);
+                                                                });
+                                                              } else {
+                                                                setState(() {
+                                                                  favoritsList.add(
+                                                                      bookSnapshots[
+                                                                              i]
+                                                                          .id);
+                                                                });
+                                                              }
+                                                              saveData();
+                                                            }
+                                                          },
+                                                        ),
+                                                        IconButton(
+                                                          icon: Icon(
+                                                            (bookSnapshots[i][
+                                                                            'pdfLink']
+                                                                        .isEmpty ||
+                                                                    (bookSnapshots[i]
+                                                                            [
+                                                                            'pdfShow'] ==
+                                                                        1))
+                                                                ? null
+                                                                : Icons
+                                                                    .picture_as_pdf,
+                                                            size: 22,
+                                                          ),
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .accentColor,
+                                                          onPressed: () {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            PDFBOOK(
+                                                                              name: bookSnapshots[i]['name'],
+                                                                              pdfUrl: bookSnapshots[i]['pdfLink'],
+                                                                            )));
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                        width: width * 0.3,
+                                                        child: Text(
+                                                          getTotal(bookSnapshots[
+                                                                          i][
+                                                                      'publishDate']
+                                                                  .toString()) +
+                                                              '\t\t\t\t\t\t' +
+                                                              "سالی چاپ",
+                                                          textAlign:
+                                                              TextAlign.end,
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             color: Theme.of(
                                                                     context)
                                                                 .accentColor,
-                                                            onPressed: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          PDFBOOK(
-                                                                            name:
-                                                                                bookSnapshots[i]['name'],
-                                                                            pdfUrl:
-                                                                                bookSnapshots[i]['pdfLink'],
-                                                                          )));
-                                                            },
                                                           ),
-                                                        ],
-                                                      ),
-                                                      Container(
-                                                          width: width * 0.3,
-                                                          child: Text(
-                                                            getTotal(bookSnapshots[
-                                                                            i][
-                                                                        'publishDate']
-                                                                    .toString()) +
-                                                                '\t\t\t\t\t\t' +
-                                                                "سالی چاپ",
-                                                            textAlign:
-                                                                TextAlign.end,
-                                                            style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .accentColor,
-                                                            ),
-                                                          )),
-                                                    ],
-                                                  ),
+                                                        )),
+                                                  ],
                                                 ),
                                               )
                                             ],

@@ -112,7 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     safeTotalOfCategories();
     getBook();
+
     changePdfLink("name");
+
+    //changePdfLink("name");
+
     // TODO: implement initState
     super.initState();
   }
@@ -128,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
       for (int i = 0; i < snapshot.docs.length; i++) {
         snapshot.docs[i].reference.update({
           //"pdfLink": (snapshot.docs[i]['name'] + ".pdf").toString()
-          "pdfShow": 1
+          "pdfShow": 2
         });
       }
 
