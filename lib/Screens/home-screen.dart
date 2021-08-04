@@ -58,13 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
       value.docs.forEach((element) async {
         Reference storage = FirebaseStorage.instance
             .ref()
-            .child('cats/${element['imagePath']}');
+            .child('cats/${element.data()['imagePath']}');
         String url = await storage.getDownloadURL();
         catMap[i] = {
-          'name': element['name'],
+          'name': element.data()['name'],
           'url': url,
           'id': element.id,
-          'total': element['total']
+          'total': element.data()['total']
         };
         // print(catMap);
         setState(() {
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
     safeTotalOfCategories();
     getBook();
 
-    changePdfLink("name");
+    //changePdfLink("name");
 
     //changePdfLink("name");
 

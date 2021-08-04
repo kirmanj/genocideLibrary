@@ -89,58 +89,59 @@ class _ImageDialogState extends State<ImageDialog> {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Theme.of(context).highlightColor,
-          ),
+          // border: Border.all(
+          //   color: Theme.of(context).highlightColor,
+          // ),
         ),
         width: width * 0.8,
-        height: height * 0.7,
+        height: height * 0.85,
         child: Container(
             child: Container(
           color: Theme.of(context).accentColor,
           child: Column(
             children: [
               Container(
-                  width: width * 0.3,
-                  height: height * 0.3,
+                  width:  width * 0.8,
+                  height: height * 0.5,
                   child: Image.network(
                     imageLink,
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.cover,
                   )),
               SizedBox(
                 height: 10,
               ),
-              Container(
-                child: Row(
-                  children: [
-                    Container(
-                        width: width * 0.52,
-                        height: height * 0.13,
-                        child: Text(
-                          (bookSnapshots['name']),
-                          textAlign: TextAlign.end,
-                          //overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        )),
-                    Container(
-                        width: width * 0.2,
-                        height: height * 0.13,
-                        child: Text(
-                          "ناوی کتێب",
-                          textAlign: TextAlign.end,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        )),
-                  ],
-                ),
+              Row(
+                children: [
+                  Container(
+                      width: width * 0.52,
+                      //height: height * 0.13,
+                      child: Text(
+                        (bookSnapshots['name']),
+                        textAlign: TextAlign.end,
+                        //overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      )),
+                  Container(
+                      width: width * 0.2,
+                     // height: height * 0.13,
+                      child: Text(
+                        "ناوی کتێب",
+                        textAlign: TextAlign.end,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      )),
+                ],
+              ),
+              SizedBox(
+                height: 15,
               ),
               Container(
                 child: Row(
@@ -172,13 +173,16 @@ class _ImageDialogState extends State<ImageDialog> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                         width: width * 0.7,
-                        padding: EdgeInsets.only(top: height * 0.05),
+                       // padding: EdgeInsets.only(top: height * 0.05),
                         child: Text(
                           getTotal(bookSnapshots['publishDate'].toString()) +
                               '\t\t\t\t\t\t' +
@@ -194,7 +198,7 @@ class _ImageDialogState extends State<ImageDialog> {
                 ),
               ),
               SizedBox(
-                height: height * 0.04,
+                height: height * 0.06,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
