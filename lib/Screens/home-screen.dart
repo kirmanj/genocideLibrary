@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
     safeTotalOfCategories();
     getBook();
 
-    changePdfLink("name");
+    // changePdfLink("name");
 
     //changePdfLink("name");
 
