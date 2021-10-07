@@ -491,7 +491,7 @@ class _AdminPannelState extends State<AdminPannel> {
                                       fontSize: 26, color: Colors.white),
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState.validate()) {
                                   if (!isBook) {
                                     FirebaseFirestore.instance
@@ -523,22 +523,46 @@ class _AdminPannelState extends State<AdminPannel> {
                                       }
                                     });
 
+                                    bool isBookExsist;
+
                                     FirebaseFirestore.instance
                                         .collection('books')
-                                        .add({
-                                      "author": writeName.text,
-                                      "categoryId": categoryControl,
-                                      "imagePath": fileName,
-                                      "name": bookName.text,
-                                      "publishDate": int.parse(yearOfBook.text),
-                                      'pdfLink': ''
+                                        .where("author",
+                                            isEqualTo: writeName.text)
+                                        .where("name", isEqualTo: bookName.text)
+                                        .get()
+                                        .then((value) {
+                                      setState(() {
+                                        isBookExsist = value.docs.isNotEmpty;
+                                      });
+                                    }).whenComplete(() {
+                                      if (isBookExsist) {
+                                        print("book exsist");
+                                        showAlertDialogSignOut(context);
+                                      } else {
+                                        print("not exsist");
+
+                                        FirebaseFirestore.instance
+                                            .collection('books')
+                                            .add({
+                                          "author": writeName.text,
+                                          "categoryId": categoryControl,
+                                          "imagePath": fileName,
+                                          "name": bookName.text,
+                                          "publishDate":
+                                              int.parse(yearOfBook.text),
+                                          'pdfLink': '',
+                                          'pdfShow': 1
+                                        });
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AdminPannel()));
+                                      }
                                     });
                                   }
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AdminPannel()));
                                 }
                               }),
                           SizedBox(
@@ -605,7 +629,6 @@ class _AdminPannelState extends State<AdminPannel> {
                             size: 22.0,
                           ),
                           onPressed: () {
-                           // showAlertDialogSignOut(context);
                             FirebaseAuth.instance.signOut();
                             Navigator.pop(context);
                           }),
@@ -936,7 +959,7 @@ class _AdminPannelState extends State<AdminPannel> {
                                               )
                                             : Container();
                                       } else {
-                                       return Container();
+                                        return Container();
                                       }
                                     }),
                               ),
@@ -954,20 +977,20 @@ class _AdminPannelState extends State<AdminPannel> {
   }
 
   showAlertDialogSignOut(BuildContext context) {
-
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
-        FirebaseAuth.instance.signOut();
         Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AdminPannel()));
       },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(""),
-      content: Text("ئایا دڵنیایت لەوەی کە دەتەوێت بچیتە دەرەوە"),
+      content: Text("ئەم پەرتووکە دووبارەیە"),
       actions: [
         okButton,
       ],
@@ -982,6 +1005,3 @@ class _AdminPannelState extends State<AdminPannel> {
     );
   }
 }
-
-
-

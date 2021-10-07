@@ -94,7 +94,7 @@ class _SearchState extends State<Search> {
           "display": element['name'].toString().toLowerCase(),
           "publishDate": element['publishDate'],
           "pdfLink": element['pdfLink'],
-          "pdfShow": element['pdfShow'],
+          "pdfShow": element.data()['pdfShow'] == null ? 1 : element['pdfShow'],
         };
         i++;
       });

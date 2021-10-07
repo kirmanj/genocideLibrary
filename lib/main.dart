@@ -23,7 +23,7 @@ class BaharkaLibrary extends StatelessWidget {
             headline3: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 45.0,
-              color:Colors.orange,
+              color: Colors.orange,
             ),
             button: TextStyle(
               fontFamily: 'OpenSans',

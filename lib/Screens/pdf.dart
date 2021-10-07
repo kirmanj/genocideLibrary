@@ -1,4 +1,5 @@
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 
@@ -49,12 +50,21 @@ class _PDFBOOKState extends State<PDFBOOK> {
       ),
       body: _isLoading
           ? Center(
-              child: Text("...جاوەروان بە",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
+              child: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  CircularProgressIndicator(backgroundColor: Colors.red,
+                  ),
+                  SizedBox(height: 20,),
+                  Text("...جاوەروان بە",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )),
+                ],
+              ),
             )
           : Container(
               color: Theme.of(context).accentColor,

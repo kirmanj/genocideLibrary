@@ -58,13 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
       value.docs.forEach((element) async {
         Reference storage = FirebaseStorage.instance
             .ref()
-            .child('cats/${element['imagePath']}');
+            .child('cats/${element.data()['imagePath']}');
         String url = await storage.getDownloadURL();
         catMap[i] = {
-          'name': element['name'],
+          'name': element.data()['name'],
           'url': url,
           'id': element.id,
-          'total': element['total']
+          'total': element.data()['total']
         };
         // print(catMap);
         setState(() {
@@ -113,8 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
     safeTotalOfCategories();
     getBook();
 
-    // changePdfLink("name");
-
     //changePdfLink("name");
 
     // TODO: implement initState
@@ -130,13 +128,14 @@ class _HomeScreenState extends State<HomeScreen> {
       String pdfLink = snapshot.docs[0]['name'] + ".pdf";
 
       for (int i = 0; i < snapshot.docs.length; i++) {
-        snapshot.docs[i].reference.update({
-          //"pdfLink": (snapshot.docs[i]['name'] + ".pdf").toString()
-          "pdfShow": 2
-        });
+        if (snapshot.docs[i]['pdfLink'] != "") {
+          print(snapshot.docs[i]['name']);
+          snapshot.docs[i].reference.update({
+            //"pdfLink": (snapshot.docs[i]['name'] + ".pdf").toString()
+            "pdfShow": 2
+          });
+        }
       }
-
-      print(pdfLink);
     });
   }
 
@@ -147,6 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SafeArea(
         child: Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          changePdfLink("name");
+        },
+        child: Icon(Icons.add),
+      ),
       backgroundColor: Theme.of(context).primaryColor,
       body: SingleChildScrollView(
           child: Container(
